@@ -1,7 +1,7 @@
 #colors and font settings
 text_color = (0,255,0)
 background_color = (0,0,0)
-font_size = ('Consolas', 18)
+font_size = ('Consolas', 16)
 
 #modules
 import os
@@ -15,6 +15,7 @@ def rgb_to_hex(rgb):
 
 def open_file():
     global current_file
+    text.delete('1.0', 'end-1c')
     file = filedialog.askopenfilename(initialdir=(os.getcwd()),
                                       title='Select a File',
                                       filetypes=[('Text or Python Files',
@@ -34,13 +35,14 @@ def save_file():
     f.write(new_text)
     f.close()
     root.title(current_file[1]+' is saved!')
-    time.sleep(2)
+    time.sleep(1)
     root.title(current_file[1]+' in Notepad --')
 
 #tkinter setup
 root = tk.Tk()
 root.title('Notepad--')
-root.geometry(f'800x400+100+100')
+res = (root.winfo_screenwidth(),root.winfo_screenheight())
+root.geometry(f'{int(res[0]/2)}x{int(res[1]/2)}+{int(res[0]/4)}+{int(res[1]/4)}')
 
 frame = tk.Frame(root)
 text = tk.Text(frame, height=10000, width=10000, wrap='none',
@@ -61,5 +63,3 @@ frame.pack()
 text.pack()
 root.config(menu=menubar)
 root.mainloop()
-
-
